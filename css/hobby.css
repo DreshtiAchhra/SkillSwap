@@ -1,0 +1,90 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: #5e86c36c; /* deep navy background */
+  color: white;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 40px auto;
+  text-align: center;
+}
+.home-icon {
+  text-align:right;
+  position: relative;
+  bottom: 60px;
+  margin: 20px 40px 0 0;
+ 
+}
+
+.home-icon i {
+  font-size: 2em; /* Increase icon size */
+  color: #0d6efd; /* Blue color */
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  border: 2px solid white;
+  border-radius: 50%;
+  padding: 5px;}
+
+.container h2 {
+  font-size: 2.2rem;
+  color: #0d6efd; /* bright blue */
+  margin-bottom: 30px;
+}
+
+/* Card layout */
+.cards {
+  display: flex;
+  align-items: center;
+  background-color: #001d3d;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 25px;
+  
+}
+
+.cards:hover {
+  transform: scale(1.03);
+}
+
+.cards img {
+  width: 200px;
+  height: 140px;
+  border-radius: 12px;
+  margin-right: 20px;
+}
+
+.card-content {
+  text-align: left;
+}
+
+.card-content h4 {
+  font-size: 1.3rem;
+  color: #4ea8de;
+  margin-bottom: 8px;
+}
+
+.card-content p {
+  font-size: 0.95rem;
+  color: #dbeafe;
+  margin-bottom: 12px;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  
+}
+

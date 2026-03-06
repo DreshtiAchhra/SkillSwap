@@ -1,0 +1,80 @@
+.container{
+
+   flex-direction: column;
+    justify-content: center;
+    align-items: self-end;
+    height: 100vh;
+    background-image:url(/images/login2.jpg);
+    background-size: cover;
+    background-position: center;
+    object-fit: cover;
+    background-repeat: no-repeat;
+    
+}
+
+.form{
+    width: 800px;
+    height:600px;
+  /* color: white; */
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+    cursor: pointer;
+    transition: 3s;
+    
+}
+
+#login1{
+     width: 300px;
+     padding: 5px;
+     border-radius: 10px;
+     font-size: 24px;
+     font-weight: bolder;
+     color: aliceblue;
+     background-color: rgb(222, 121, 221);
+     box-shadow: 0 5px 15px rgba(0, 0, 0.1);
+     
+
+}
+a{
+    text-decoration: none;
+    color:gray;
+    
+}
+#User1,#User2{
+    width:300px;
+
+    padding: 10px;
+    border-radius: 10px;
+}
+label{
+    font-size:24px;
+}
+.span1{
+    position: relative;
+    bottom: 50px;
+    font-weight: bolder;
+    font-size: 30px;
+}
+img{
+    width:10px;
+}
+.foo{
+   flex-direction: row;
+    justify-content:space-between;
+}
+.div1{
+    width: 100px;
+    height: 20px;
+    border: 2px solid gray;
+    border-radius: 10px;
+    text-align: center;
+    margin: 20px;
+    color: rgb(7, 7, 100);
+}
+.div2{
+    color:black;
+}
+p{
+    color: gray;
+}
