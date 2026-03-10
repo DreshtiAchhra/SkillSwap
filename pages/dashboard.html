@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard - Skill Swap</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #0066cc;
+            --dark-blue: #001a4d;
+            --black: #1a1a1a;
+            --white: #ffffff;
+            --light-gray: #f5f7fa;
+            --border-gray: #d0d8e0;
+            --success-green: #28a745;
+            --warning-orange: #ff9800;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: var(--light-gray);
+            color: var(--black);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-blue) 100%);
+            color: var(--white);
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 26, 77, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            padding: 0.75rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-link.active {
+            background: var(--white);
+            color: var(--primary-blue);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* Profile Section */
+        .profile-section {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            border-left: 5px solid var(--primary-blue);
+        }
+
+        .profile-header {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 2rem;
+            align-items: start;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border-gray);
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        .profile-info h2 {
+            font-size: 2rem;
+            color: var(--dark-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-subtitle {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .skill-box {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .skill-box h3 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--primary-blue);
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-box p {
+            font-size: 1.25rem;
+            color: var(--black);
+            font-weight: 600;
+        }
+
+        /* Learning Progress Section */
+        .learning-section {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--dark-blue);
+            margin-bottom: 2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 1.5rem;
+            background: var(--primary-blue);
+            border-radius: 2px;
+        }
+
+        /* Progress Cards */
+        .progress-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .progress-card {
+            background: var(--white);
+            border: 2px solid var(--border-gray);
+            border-radius: 12px;
+            padding: 1.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .progress-card:hover {
+            border-color: var(--primary-blue);
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.12);
+        }
+
+        .progress-title {
+            font-size: 1.1rem;
+            color: var(--dark-blue);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+        }
+
+        .progress-level {
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+
+        .progress-percent {
+            color: #666;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 10px;
+            background: var(--border-gray);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-blue) 0%, #0052a3 100%);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        /* Chart Section */
+        .chart-container {
+            background: var(--light-gray);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .chart-title {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Bar Chart */
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 200px;
+            gap: 1rem;
+            padding: 1rem 0;
+        }
+
+        .bar-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            justify-content: flex-end;
+        }
+
+        .bar {
+            width: 100%;
+            background: linear-gradient(180deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            border-radius: 6px 6px 0 0;
+            transition: all 0.3s ease;
+            position: relative;
+            min-height: 20px;
+        }
+
+        .bar:hover {
+            opacity: 0.8;
+            transform: scaleY(1.05);
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: 600;
+            color: var(--primary-blue);
+            font-size: 0.9rem;
+        }
+
+        .bar-label {
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: #666;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            border-top: 3px solid var(--primary-blue);
+        }
+
+        .stat-number {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #666;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #999;
+        }
+
+        .empty-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            opacity: 0.3;
+        }
+
+        .empty-state p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .empty-state a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .empty-state a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-header {
+                grid-template-columns: 1fr;
+            }
+
+            .progress-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 1.4rem;
+            }
+
+            .header-nav {
+                gap: 0.5rem;
+            }
+
+            .nav-link {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.9rem;
+            }
+
+            .bar-chart {
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Skill Swap</h1>
+            <div class="header-nav">
+                <a href="dashboard.html" class="nav-link">Community</a>
+                <a href="profile.html" class="nav-link">Create Profile</a>
+                <a href="my-dashboard.html" class="nav-link active">My Profile</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Profile Section -->
+        <div class="profile-section" id="profileContainer">
+            <!-- Will be populated by JavaScript -->
+        </div>
+
+        <!-- Learning Progress Section -->
+        <div class="learning-section">
+            <h2 class="section-title">Learning Progress</h2>
+            <div class="progress-grid" id="progressContainer">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Statistics Section -->
+        <div class="learning-section" style="margin-top: 2rem;">
+            <h2 class="section-title">Your Learning Statistics</h2>
+            <div class="stats-grid" id="statsContainer">
+                <!-- Will be populated by JavaScript -->
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-title">Learning Progress Over Time</div>
+                <div class="bar-chart" id="chartContainer">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== LEARNING DATA STRUCTURE ====================
+        // Mock learning progress data - in real app, this would be stored and updated
+        const LEARNING_DATA_KEY = 'skillSwapLearningData';
+        const PROFILES_KEY = 'skillSwapProfiles';
+
+        class LearningDataManager {
+            static getLearningData(profileId) {
+                const data = localStorage.getItem(LEARNING_DATA_KEY);
+                const allData = data ? JSON.parse(data) : {};
+                return allData[profileId] || this.initializeDefaultData(profileId);
+            }
+
+            static initializeDefaultData(profileId) {
+                return {
+                    skills: [
+                        { name: 'JavaScript', proficiency: 75, startDate: '2024-01-15', hoursLearned: 120 },
+                        { name: 'React', proficiency: 60, startDate: '2024-02-01', hoursLearned: 80 },
+                        { name: 'Web Design', proficiency: 45, startDate: '2024-03-10', hoursLearned: 50 },
+                        { name: 'Python', proficiency: 55, startDate: '2024-02-15', hoursLearned: 70 }
+                    ],
+                    lastUpdated: new Date().toISOString()
+                };
+            }
+
+            static saveLearningData(profileId, data) {
+                const allData = localStorage.getItem(LEARNING_DATA_KEY) ? JSON.parse(localStorage.getItem(LEARNING_DATA_KEY)) : {};
+                allData[profileId] = data;
+                localStorage.setItem(LEARNING_DATA_KEY, JSON.stringify(allData));
+            }
+        }
+
+        // ==================== DOM ELEMENTS ====================
+        const profileContainer = document.getElementById('profileContainer');
+        const progressContainer = document.getElementById('progressContainer');
+        const statsContainer = document.getElementById('statsContainer');
+        const chartContainer = document.getElementById('chartContainer');
+
+        // ==================== CURRENT USER MANAGEMENT ====================
+        let currentUser = null;
+        let currentUserLearningData = null;
+
+        function loadCurrentUser() {
+            // Try to get the last created profile
+            const profiles = localStorage.getItem(PROFILES_KEY);
+            if (profiles) {
+                const profileList = JSON.parse(profiles);
+                if (profileList.length > 0) {
+                    currentUser = profileList[profileList.length - 1];
+                    currentUserLearningData = LearningDataManager.getLearningData(currentUser.id);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // ==================== RENDER PROFILE ====================
+        function renderProfile() {
+            if (!currentUser) {
+                profileContainer.innerHTML = `
+                    <div class="empty-state">
+                        <svg class="empty-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                        <p>You haven't created a profile yet</p>
+                        <a href="profile.html">Create Your Profile</a>
+                    </div>
+                `;
+                return;
+            }
+
+            const initials = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase();
+
+            profileContainer.innerHTML = `
+                <div class="profile-header">
+                    <div class="profile-avatar">${initials}</div>
+                    <div class="profile-info">
+                        <h2>${escapeHtml(currentUser.name)}</h2>
+                        <p class="profile-subtitle">Member since ${new Date(currentUser.createdAt).toLocaleDateString()}</p>
+                        <div class="profile-grid">
+                            <div class="skill-box">
+                                <h3>Can Teach</h3>
+                                <p>${escapeHtml(currentUser.teach)}</p>
+                            </div>
+                            <div class="skill-box">
+                                <h3>Wants to Learn</h3>
+                                <p>${escapeHtml(currentUser.learn)}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ==================== RENDER LEARNING PROGRESS ====================
+        function renderProgressCards() {
+            if (!currentUserLearningData || !currentUserLearningData.skills) {
+                progressContainer.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #999;">No learning data available</p>';
+                return;
+            }
+
+            progressContainer.innerHTML = currentUserLearningData.skills.map(skill => `
+                <div class="progress-card">
+                    <h3 class="progress-title">${escapeHtml(skill.name)}</h3>
+                    
+                    <div class="progress-container">
+                        <div class="progress-header">
+                            <span class="progress-level">${getProficiencyLabel(skill.proficiency)}</span>
+                            <span class="progress-percent">${skill.proficiency}%</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar" style="width: ${skill.proficiency}%"></div>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="chart-title">Learning Details</div>
+                        <div style="font-size: 0.9rem; line-height: 1.8;">
+                            <div><strong>Started:</strong> ${new Date(skill.startDate).toLocaleDateString()}</div>
+                            <div><strong>Hours Learned:</strong> ${skill.hoursLearned}h</div>
+                            <div><strong>Status:</strong> ${skill.proficiency < 30 ? 'Beginner' : skill.proficiency < 60 ? 'Intermediate' : 'Advanced'}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ==================== RENDER STATISTICS ====================
+        function renderStatistics() {
+            if (!currentUserLearningData || !currentUserLearningData.skills) {
+                return;
+            }
+
+            const skills = currentUserLearningData.skills;
+            const avgProficiency = Math.round(skills.reduce((sum, s) => sum + s.proficiency, 0) / skills.length);
+            const totalHours = skills.reduce((sum, s) => sum + s.hoursLearned, 0);
+            const beginnerCount = skills.filter(s => s.proficiency < 30).length;
+            const advancedCount = skills.filter(s => s.proficiency >= 60).length;
+
+            statsContainer.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-number">${skills.length}</div>
+                    <div class="stat-label">Skills Learning</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${avgProficiency}%</div>
+                    <div class="stat-label">Avg Proficiency</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${totalHours}</div>
+                    <div class="stat-label">Total Hours</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${advancedCount}</div>
+                    <div class="stat-label">Advanced Skills</div>
+                </div>
+            `;
+
+            renderChart(skills);
+        }
+
+        // ==================== RENDER CHART ====================
+        function renderChart(skills) {
+            const maxProficiency = 100;
+            const chartHTML = skills.map((skill, index) => {
+                const height = (skill.proficiency / maxProficiency) * 100;
+                return `
+                    <div class="bar-item">
+                        <div class="bar" style="height: ${height}%;">
+                            <div class="bar-value">${skill.proficiency}%</div>
+                        </div>
+                        <div class="bar-label">${skill.name}</div>
+                    </div>
+                `;
+            }).join('');
+
+            chartContainer.innerHTML = chartHTML;
+        }
+
+        // ==================== UTILITY FUNCTIONS ====================
+        function getProficiencyLabel(proficiency) {
+            if (proficiency < 30) return 'Beginner';
+            if (proficiency < 60) return 'Intermediate';
+            return 'Advanced';
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ==================== INITIALIZATION ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            if (loadCurrentUser()) {
+                renderProfile();
+                renderProgressCards();
+                renderStatistics();
+            } else {
+                profileContainer.innerHTML = `
+                    <div class="empty-state">
+                        <svg class="empty-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                        <p>You haven't created a profile yet</p>
+                        <a href="profile.html">Create Your Profile</a>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

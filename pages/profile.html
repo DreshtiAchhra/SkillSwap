@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Swap - Create Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #0066cc;
+            --dark-blue: #001a4d;
+            --black: #1a1a1a;
+            --white: #ffffff;
+            --light-gray: #f5f7fa;
+            --border-gray: #d0d8e0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: var(--light-gray);
+            color: var(--black);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-blue) 100%);
+            color: var(--white);
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 26, 77, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            padding: 0.75rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-link.active {
+            background: var(--white);
+            color: var(--primary-blue);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        /* Form Section */
+        .form-section {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            border-left: 5px solid var(--primary-blue);
+        }
+
+        .form-section h2 {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-blue);
+            font-weight: 600;
+        }
+
+        .form-subtitle {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.75rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.6rem;
+            font-weight: 600;
+            color: var(--dark-blue);
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 2px solid var(--border-gray);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            color: var(--black);
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            background: linear-gradient(to right, rgba(0, 102, 204, 0.01), transparent);
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+
+        input::placeholder {
+            color: #999;
+        }
+
+        /* Button Group */
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2.5rem;
+        }
+
+        button {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        #saveProfile {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            color: var(--white);
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.25);
+        }
+
+        #saveProfile:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 102, 204, 0.35);
+        }
+
+        #saveProfile:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        button.clear-btn {
+            background: var(--light-gray);
+            color: var(--dark-blue);
+            border: 2px solid var(--border-gray);
+            font-weight: 600;
+        }
+
+        button.clear-btn:hover {
+            background: #eff3f8;
+            border-color: var(--primary-blue);
+        }
+
+        /* Profile Display Section */
+        .profile-section h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-blue);
+            font-weight: 600;
+        }
+
+        .profile-card {
+            background: var(--white);
+            border: 2px solid var(--border-gray);
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+            min-height: 380px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .profile-card.empty {
+            border-color: var(--border-gray);
+            opacity: 0.7;
+            color: #999;
+            align-items: center;
+            text-align: center;
+        }
+
+        .profile-card.active {
+            border-color: var(--primary-blue);
+            box-shadow: 0 4px 16px rgba(0, 102, 204, 0.12);
+        }
+
+        .empty-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            opacity: 0.3;
+        }
+
+        .profile-info {
+            text-align: left;
+        }
+
+        .profile-name {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 2rem;
+            letter-spacing: -0.5px;
+        }
+
+        .profile-skills {
+            display: flex;
+            flex-direction: column;
+            gap: 1.75rem;
+        }
+
+        .skill-item {
+            border-left: 4px solid var(--primary-blue);
+            padding-left: 1.25rem;
+        }
+
+        .skill-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--primary-blue);
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-value {
+            font-size: 1.25rem;
+            color: var(--black);
+            font-weight: 500;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .profile-card.active {
+            animation: fadeInUp 0.4s ease;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.75rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .content-wrapper {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .form-section,
+            .profile-card {
+                padding: 1.75rem;
+            }
+
+            .profile-name {
+                font-size: 1.5rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Skill Swap</h1>
+            <div class="header-nav">
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+                <a href="profile.html" class="nav-link active">Create Profile</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="content-wrapper">
+            <!-- Form Section -->
+            <div class="form-section">
+                <h2>Create Your Profile</h2>
+                <p class="form-subtitle">Let others know your skills and what you want to learn</p>
+
+                <form id="profileForm">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input 
+                            type="text" 
+                            id="name" 
+                            placeholder="Enter your full name"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="teach">Skill I Can Teach</label>
+                        <input 
+                            type="text" 
+                            id="teach" 
+                            placeholder="e.g., Web Development, Photography, Spanish"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="learn">Skill I Want to Learn</label>
+                        <input 
+                            type="text" 
+                            id="learn" 
+                            placeholder="e.g., Machine Learning, Guitar, French"
+                            required
+                        >
+                    </div>
+
+                    <div class="button-group">
+                        <button type="submit" id="saveProfile">Save Profile</button>
+                        <button type="reset" class="clear-btn">Clear</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Profile Display Section -->
+            <div class="profile-section">
+                <h2>Profile Preview</h2>
+                <div class="profile-card empty" id="profileDisplay">
+                    <svg class="empty-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                    <p>Fill in your details to preview your profile</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== LOCAL STORAGE MANAGEMENT ====================
+        const STORAGE_KEY = 'skillSwapProfiles';
+
+        class ProfileManager {
+            static getAllProfiles() {
+                const data = localStorage.getItem(STORAGE_KEY);
+                return data ? JSON.parse(data) : [];
+            }
+
+            static saveProfiles(profiles) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(profiles));
+            }
+
+            static addProfile(profile) {
+                const profiles = this.getAllProfiles();
+                profile.id = Date.now().toString();
+                profile.createdAt = new Date().toISOString();
+                profiles.push(profile);
+                this.saveProfiles(profiles);
+                return profile;
+            }
+        }
+
+        // ==================== DOM ELEMENTS ====================
+        const form = document.getElementById('profileForm');
+        const nameInput = document.getElementById('name');
+        const teachInput = document.getElementById('teach');
+        const learnInput = document.getElementById('learn');
+        const profileDisplay = document.getElementById('profileDisplay');
+
+        // ==================== FORM SUBMISSION ====================
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const profile = {
+                name: nameInput.value.trim(),
+                teach: teachInput.value.trim(),
+                learn: learnInput.value.trim()
+            };
+
+            if (profile.name && profile.teach && profile.learn) {
+                const newProfile = ProfileManager.addProfile(profile);
+                displayProfile(newProfile);
+                showSuccessMessage();
+                form.reset();
+            }
+        });
+
+        // ==================== DISPLAY PROFILE ====================
+        function displayProfile(profile) {
+            profileDisplay.innerHTML = `
+                <div class="profile-info">
+                    <div class="profile-name">${escapeHtml(profile.name)}</div>
+                    <div class="profile-skills">
+                        <div class="skill-item">
+                            <div class="skill-label">Can Teach</div>
+                            <div class="skill-value">${escapeHtml(profile.teach)}</div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-label">Wants to Learn</div>
+                            <div class="skill-value">${escapeHtml(profile.learn)}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            profileDisplay.classList.remove('empty');
+            profileDisplay.classList.add('active');
+        }
+
+        // ==================== UTILITY FUNCTIONS ====================
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function showSuccessMessage() {
+            const message = document.createElement('div');
+            message.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: #28a745;
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                z-index: 1001;
+                animation: slideIn 0.3s ease;
+            `;
+            message.textContent = '✓ Profile added to community!';
+            document.body.appendChild(message);
+
+            setTimeout(() => {
+                message.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => message.remove(), 300);
+            }, 2000);
+        }
+
+        // ==================== INITIALIZATION ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Clear form on page load for creating new profiles
+            form.reset();
+            profileDisplay.innerHTML = '<p class="profile-empty">Your profile preview will appear here</p>';
+        });
+
+        // Enter key to submit form
+        [nameInput, teachInput, learnInput].forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && e.ctrlKey) {
+                    form.dispatchEvent(new Event('submit'));
+                }
+            });
+        });
+
+        // Add animation styles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    opacity: 0;
+                    transform: translateX(400px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+            @keyframes slideOut {
+                from {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateX(400px);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
